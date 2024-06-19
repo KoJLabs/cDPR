@@ -1,0 +1,14 @@
+Task : DPR
+Experiment : Faiss-Batch32
+seed : 42
+data:
+    context : /home/jisukim/DPRAG-LLM/datasets/context.parquet # context 결과를 저장한 파일 경로를 설정합니다.
+hyper_params: 
+    tokenizer_max_length : 512 # tokenizer의 max length를 지정합니다. 
+    batch_size : 8 # faiss index의 batch size를 설정합니다. (context의 길이/batch_size = 정수 로 떨어지게 batch_size를 설정합니다.)
+model:
+    text_model_path : klue/roberta-large # 모델 이름을 설정합니다.
+    device: cuda:0 # 디바이스를 설정합니다.
+    model_path: ./results/best_model_gold32/model_epoch_22/pytorch_model.bin # 학습시킨 question 모델 경로를 설정합니다.
+faiss:
+    fname: /home/jisukim/DPRAG-LLM/dpr/results/total_index_batch_32.index # faiss index를 저장할 경로와 이름을 설정합니다.

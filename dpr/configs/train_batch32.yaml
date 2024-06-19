@@ -1,0 +1,22 @@
+Task : DPR
+Experiment : DPR-batch-32
+seed : 42
+data: 
+    train: ./datasets/dpr_train.parquet
+    valid : ./datasets/dpr_val.parquet
+    test: ./datasets/dpr_test.parquet
+    inference: False
+hyper_params : 
+    tokenizer_max_length : 512
+    batch_size : 32
+    learning_rate : 0.000001
+    adam_eps : 0.00000001
+    adam_betas : [0.9, 0.999]
+    weight_decay : 0.0
+    epochs : 30
+    warmup_steps : 1200                                 # if 0 -> off the transpose option
+model:
+    text_model_path : klue/roberta-base      # one of BertPretrainedModel 
+    save_model_path : ./results/best_model_gold32
+    model_name : best_gold_32.pt
+    device: cuda:0
