@@ -4,7 +4,7 @@
 Dataset from AI Hub: [MRC Dataset](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=569)
 
 #### Sample Table
-| Intention | Question                                                         | Answer                | Context                                                                                         | Answer Start | Answer Length |
+| intention | question                                                         | answer                | context                                                                                         | answer_start | answer_length |
 |-----------|------------------------------------------------------------------|-----------------------|-------------------------------------------------------------------------------------------------|--------------|---------------|
 | Location  | What is the investment site recommended by Busan as a four-season luxury complex marine leisure city?   | East Busan Tourist Complex       | 'Here is the best place to invest in the coastal development project' - 17 projects including the hinterland development of Jindo Port ...                            | 192          | 8             |
 | Etcs      | How many religious facilities are subject to steeple safety management, investigation, and demolition?              | 288 churches          | Steeple Safety Inspection and Demolition Support Plan\nⅠ Overview\n Background\n○ Due to strong winds, typhoons ...                            | 441          | 8             |
@@ -100,19 +100,6 @@ To start the training process, use the following command:
 ```
 python dpr/train.py --config_path dpr/configs/train_batch32.yaml
 ```
-
-### Running Faiss DB
-To start the data ordering process, use the following command:
-
-```
-python preprocess.py --data_path {data_path} --model_path {drp enocder model_path} --chunk_size {chunk_size}
-```
-
-Example
-``` 
-python preprocess.py --data_path ./datasets/admin_clean_mrc_1.parquet --model_path 'klue/roberta-base' --chunk_size 512
-```
-
 
 
 

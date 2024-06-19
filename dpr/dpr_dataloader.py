@@ -8,10 +8,10 @@ import json
 class DPR_Dataset(Dataset):
     def __init__(self, df):
         self.df = df
-        self.question = df['questions'].to_numpy()
-        self.positive_passage = df['contexts'].to_numpy()
+        self.question = df['question'].to_numpy()
+        self.positive_passage = df['preprocessed_context'].to_numpy()
         self.ctx_idx = df['context_id'].to_numpy()
-        self.answer = df['answers'].to_numpy()
+        self.answer = df['answer'].to_numpy()
 
     def __len__(self):
         return len(self.question)
@@ -25,25 +25,6 @@ class DPR_Dataset(Dataset):
         }
     
 
-# def collate_fn(batch_size, batch):
-#     unique_ctx_idx = list(set([item["ctx_idx"] for item in batch]))  # Get unique ctx_idx values in the batch
-#     batch_data = {
-#         "question": [],
-#         "positive_passage": [],
-#         "ctx_idx": unique_ctx_idx,
-#         "answer": []
-#     }
-
-#     for item in batch:
-#         batch_data["question"].append(item["question"])
-#         batch_data["positive_passage"].append(item["positive_passage"])
-#         batch_data["answer"].append(item["answer"])
-
-#     if len(batch_data["ctx_idx"]) == batch_size:
-#         return batch_data
-#     else:
-#         return None
-    
 
 def collate_fn(batch_size, batch):
     # ctx_idx를 키로 사용하여 유니크한 아이템을 저장할 딕셔너리를 초기화합니다.
@@ -74,16 +55,18 @@ def collate_fn(batch_size, batch):
     else:
         return None
 
-    
-    
-
 def parse_data(config, dtype):
     dataset = pd.read_parquet(config['data'][dtype])
+    dataset = dataset.reset_index(drop=True)
     
     if config['data']['inference']:
         dtype = "test"
 
     if dtype == "train":
+        
+        # intention token 처리
+        dataset['question'] = '###' + dataset['intention'] + ' ' + dataset['question']
+        dataset['preprocessed_context'] = '###' + dataset['intention'] + ' ' + dataset['preprocessed_context']
         data_loader = DataLoader(
                                     DPR_Dataset(dataset), 
                                     batch_size=config['hyper_params']['batch_size'], 

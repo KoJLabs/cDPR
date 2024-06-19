@@ -2,11 +2,11 @@ Task : DPR
 Experiment : DPR-batch-32
 seed : 42
 data: 
-    train: ./datasets/dpr_train.parquet
-    valid : ./datasets/dpr_val.parquet
-    test: ./datasets/dpr_test.parquet
+    train: ./datasets/train.parquet
+    valid : ./datasets/valid.parquet
+    test: ./datasets/test.parquet
     inference: False
-hyper_params : 
+hyper_params: 
     tokenizer_max_length : 512
     batch_size : 32
     learning_rate : 0.000001
@@ -14,9 +14,10 @@ hyper_params :
     adam_betas : [0.9, 0.999]
     weight_decay : 0.0
     epochs : 30
-    warmup_steps : 1200                                 # if 0 -> off the transpose option
+    warmup_steps : 1200
 model:
-    text_model_path : klue/roberta-base      # one of BertPretrainedModel 
+    text_model_path : klue/roberta-base
     save_model_path : ./results/best_model_gold32
     model_name : best_gold_32.pt
     device: cuda:0
+    intention_vocab: ['###국토관리', '###사회복지', '###산업고용', '###법률', '###농축수산', '###공공행정', '###기타', '###환경기상', '###식품건강', '###과학기술', '###문화관광']

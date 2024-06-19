@@ -5,13 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger: Current File with Arguments",
+            "name": "Python Debugger: Current File",
             "type": "debugpy",
             "request": "launch",
-            "program": "preprocess.py",
+            "program": "dpr/train.py",
             "console": "integratedTerminal",
-            "args": ["--data_path", "/data/juhwan/playground-NLP/cDPR/datasets/admin_clean_mrc_1.parquet",
-             "--model_path", "klue/roberta-base", "--chunk_size", "512"]
+            "args": [
+                "--config_path", "/data/juhwan/playground-NLP/cDPR/dpr/configs/train_batch32.yaml"
+            ]
         }
     ]
 }

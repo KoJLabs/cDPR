@@ -135,15 +135,18 @@ def main(args):
     filtered_df['context_bundle'] = max_context
     filtered_df['preprocessed_context'] = [list_[-1:] for list_ in max_context]
     filtered_df['preprocessed_context'] = filtered_df['preprocessed_context'].apply(lambda x: str(x[0]) if x and x[0] is not None else '')
+
+    # context id map 
+    filtered_df['context_id'] = pd.factorize(filtered_df['preprocessed_context'])[0]
         
     # Splitting the data
     train_df, temp_df = train_test_split(filtered_df, test_size=0.2, random_state=42)
     val_df, test_df = train_test_split(temp_df, test_size=0.5, random_state=42)
 
     # Saving the splits to parquet files
-    train_df.to_parquet('./dpr_train.parquet')
-    val_df.to_parquet('./dpr_val.parquet')
-    test_df.to_parquet('./dpr_test.parquet')
+    train_df.to_parquet('./train.parquet')
+    val_df.to_parquet('./valid.parquet')
+    test_df.to_parquet('./test.parquet')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

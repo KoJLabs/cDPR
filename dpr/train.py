@@ -14,7 +14,6 @@ import yaml
 from transformers import AutoTokenizer
 from torch import nn
 import os
-## 4,8,16,32
 
 warnings.filterwarnings(action='ignore')
 
@@ -39,10 +38,19 @@ def read_config(config_path):
 def main(config):
     device = torch.device(config['model']['device'])
 
+    # tokenizer
+    encoder_tokenizer = AutoTokenizer.from_pretrained(config['model']['text_model_path'])
+    encoder_tokenizer.add_special_tokens({'additional_special_tokens': config['model']['intention_vocab']})
+    print("Special tokens added:", encoder_tokenizer.additional_special_tokens)
+        
     # model load
     question_encoder = Encoder(config, device)
     passage_encoder = Encoder(config, device)
 
+    # 
+    question_encoder.encoder.resize_token_embeddings(len(encoder_tokenizer))
+    passage_encoder.encoder.resize_token_embeddings(len(encoder_tokenizer))
+    
     model = DPR(question_encoder, passage_encoder, device)    
 
     # Training dataset
@@ -68,8 +76,7 @@ def main(config):
                     num_training_steps=total_steps
                 )
     
-    encoder_tokenizer = AutoTokenizer.from_pretrained(config['model']['text_model_path'])
-    
+
     torch.cuda.empty_cache()
     # start training
     for epoch in tqdm(range(1, config['hyper_params']['epochs']+1)):
