@@ -3,7 +3,7 @@
 ## MRC Dataset
 Dataset from AI Hub: [MRC Dataset](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=569)
 
-#### Sample Table
+#### Sample Table (The original dataset is in Korean, but only the samples are translated into English.)
 | intention | question                                                         | answer                | context                                                                                         | answer_start | answer_length |
 |-----------|------------------------------------------------------------------|-----------------------|-------------------------------------------------------------------------------------------------|--------------|---------------|
 | Location  | What is the investment site recommended by Busan as a four-season luxury complex marine leisure city?   | East Busan Tourist Complex       | 'Here is the best place to invest in the coastal development project' - 17 projects including the hinterland development of Jindo Port ...                            | 192          | 8             |
