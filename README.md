@@ -105,7 +105,7 @@ python dpr/train.py --config_path dpr/configs/train_batch32.yaml
 
 ## Citation
 ```
-@misc{KoTAN,
+@misc{cDPR,
   author       = {Juhwan Lee, Jisu Kim},
   title        = {Control Token with Dense Passage Retrieval},
   howpublished = {\url{https://github.com/KoJLabs/cDPR}},
